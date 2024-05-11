@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:fypp/constants/images.dart';
 import 'package:fypp/login_screen.dart';
 
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 left: animate? 10:10,
                 right:animate? 10:10,
                 top: animate? 10:10,
-                child: Image(image:AssetImage(splash))),
+                child:const Image(image:AssetImage(splash))),
             ],
           ),
 
@@ -40,10 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 Future startanimation() async{
-   await Future.delayed(Duration(milliseconds: 5000));
+   await Future.delayed(const Duration(milliseconds: 5000));
    setState(()=>animate=true);
-   await Future.delayed(Duration(milliseconds: 5000));
-   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Profile()));
+   await Future.delayed(const Duration(milliseconds: 5000));
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Profile()));
 
   }
 }
