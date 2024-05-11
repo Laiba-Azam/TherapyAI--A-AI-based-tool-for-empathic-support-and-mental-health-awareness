@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fypp/constants/images.dart';
 import 'package:fypp/login_screen.dart';
 
@@ -13,27 +15,35 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool animate=false;
   @override
   void initState(){//initizlize
-    super.initState();
-    //write code here for timing
-    Timer(Duration(seconds: 15) , () { 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Profile()));
-    });
+  startanimation();
   }
   @override
   Widget build(BuildContext context) {
         return Scaffold(
+          backgroundColor: Colors.white,
           body: Stack(
             children: [
-              const Positioned(
-                bottom: 40,
+              AnimatedPositioned  (
+                duration: const Duration(milliseconds:5000),
+                bottom: animate? 10:-300,
+                left: animate? 10:10,
+                right:animate? 10:10,
+                top: animate? 10:10,
                 child: Image(image:AssetImage(splash))),
-
             ],
           ),
 
 
     );
+  }
+Future startanimation() async{
+   await Future.delayed(Duration(milliseconds: 5000));
+   setState(()=>animate=true);
+   await Future.delayed(Duration(milliseconds: 5000));
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Profile()));
+
   }
 }
