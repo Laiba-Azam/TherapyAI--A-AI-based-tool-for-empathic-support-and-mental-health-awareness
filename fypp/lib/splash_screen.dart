@@ -2,6 +2,7 @@ import 'dart:async';
 
 
 import 'package:flutter/material.dart';
+import 'package:fypp/chatbot.dart';
 
 import 'package:fypp/constants/images.dart';
 import 'package:fypp/login_screen.dart';
@@ -43,7 +44,7 @@ Future startanimation() async{
    await Future.delayed(const Duration(milliseconds: 5000));
    setState(()=>animate=true);
    await Future.delayed(const Duration(milliseconds: 5000));
-   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Profile()));
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomePage()));
 
   }
 }
