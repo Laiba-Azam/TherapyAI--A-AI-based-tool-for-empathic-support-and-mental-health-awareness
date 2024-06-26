@@ -6,7 +6,9 @@ import 'package:fypp/chatbot.dart';
 
 import 'package:fypp/constants/images.dart';
 import 'package:fypp/login_screen.dart';
-import 'package:fypp/week1.dart';
+import 'package:fypp/main_screen.dart';
+import 'package:fypp/week8.dart';
+
 
 
 class SplashScreen extends StatefulWidget {
@@ -45,7 +47,7 @@ Future startanimation() async{
    await Future.delayed(const Duration(milliseconds: 5000));
    setState(()=>animate=true);
    await Future.delayed(const Duration(milliseconds: 5000));
-   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Week1Activity()));
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MainScreen()));
 
   }
 }
