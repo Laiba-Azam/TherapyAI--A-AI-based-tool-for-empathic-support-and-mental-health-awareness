@@ -121,7 +121,7 @@ class MainScreen extends StatelessWidget {
                 
               ),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 199, 185, 195).withOpacity(0.6),
+                color: Color.fromARGB(75, 227, 209, 222).withOpacity(0.6),
               ),
            
             ),
