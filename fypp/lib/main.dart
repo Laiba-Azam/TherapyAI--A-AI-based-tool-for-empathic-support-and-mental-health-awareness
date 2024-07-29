@@ -15,6 +15,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+            home: StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Home();
+        } else {
+          return LoginForm();
+        }
+      },
+    ));
+  }
+}
       title: 'Flutter Demo',
       theme: ThemeData(
        
