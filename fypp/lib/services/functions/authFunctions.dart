@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp/services/functions/firebaseFunctions.dart';
+import 'package:fypp/services/functions/firebaseFunctions.dart';
 
 class AuthServices {
   static signupUser(

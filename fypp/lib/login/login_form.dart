@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterapp/services/functions/authFunctions.dart'; // Ensure this path is correct
+ import 'package:flutter/material.dart';
+import 'package:fypp/services/functions/authFunctions.dart'; // Ensure this path is correct
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
