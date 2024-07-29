@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/services/functions/authFunctions.dart';
+import 'package:flutterapp/services/functions/authFunctions.dart'; // Ensure this path is correct
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -25,32 +25,31 @@ class _LoginFormState extends State<LoginForm> {
       ),
       body: Form(
         key: _formKey,
-        child: Container(
+        child: Padding(
           padding: EdgeInsets.all(14),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // ======== Full Name ========
-              login
-                  ? Container()
-                  : TextFormField(
-                      key: ValueKey('fullname'),
-                      decoration: InputDecoration(
-                        hintText: 'Enter Full Name',
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please Enter Full Name';
-                        } else {
-                          return null;
-                        }
-                      },
-                      onSaved: (value) {
-                        setState(() {
-                          fullname = value!;
-                        });
-                      },
-                    ),
+              if (!login) 
+                TextFormField(
+                  key: ValueKey('fullname'),
+                  decoration: InputDecoration(
+                    hintText: 'Enter Full Name',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter Full Name';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (value) {
+                    setState(() {
+                      fullname = value!;
+                    });
+                  },
+                ),
 
               // ======== Email ========
               TextFormField(
@@ -60,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty || !value.contains('@')) {
-                    return 'Please Enter valid Email';
+                    return 'Please Enter a valid Email';
                   } else {
                     return null;
                   }
@@ -71,6 +70,7 @@ class _LoginFormState extends State<LoginForm> {
                   });
                 },
               ),
+
               // ======== Password ========
               TextFormField(
                 key: ValueKey('password'),
@@ -80,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 validator: (value) {
                   if (value!.length < 6) {
-                    return 'Please Enter Password of min length 6';
+                    return 'Please Enter a Password of min length 6';
                   } else {
                     return null;
                   }
@@ -91,36 +91,36 @@ class _LoginFormState extends State<LoginForm> {
                   });
                 },
               ),
-              SizedBox(
-                height: 30,
+              
+              SizedBox(height: 30),
+
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    login
+                        ? AuthServices.signinUser(email, password, context)
+                        : AuthServices.signupUser(email, password, fullname, context);
+                  }
+                },
+                child: Text(login ? 'Login' : 'Signup'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 55),
+                ),
               ),
-              Container(
-                height: 55,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        login
-                            ? AuthServices.signinUser(email, password, context)
-                            : AuthServices.signupUser(
-                                email, password, fullname, context);
-                      }
-                    },
-                    child: Text(login ? 'Login' : 'Signup')),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+
+              SizedBox(height: 10),
+
               TextButton(
-                  onPressed: () {
-                    setState(() {
-                      login = !login;
-                    });
-                  },
-                  child: Text(login
-                      ? "Don't have an account? Signup"
-                      : "Already have an account? Login"))
+                onPressed: () {
+                  setState(() {
+                    login = !login;
+                  });
+                },
+                child: Text(login
+                    ? "Don't have an account? Signup"
+                    : "Already have an account? Login"),
+              ),
             ],
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,12 +15,16 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-              },
-              icon: Icon(Icons.leave_bags_at_home))
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+            },
+            icon: Icon(Icons.logout), // Updated icon for logout
+          ),
         ],
         title: Text('Home'),
+      ),
+      body: Center(
+        child: Text('Welcome to Home Screen!'),
       ),
     );
   }
