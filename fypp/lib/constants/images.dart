@@ -33,6 +33,8 @@ const String planweek54="assets/image/planweek54.jpeg";
 const String planweek6="assets/image/planweek6.png";
 const String planweek7="assets/image/planweek7.jpeg";
 const String planweek8="assets/image/planweek8.jpeg";
+const String nondepressed="assets/image/nondepressed.jpeg";
+const String severe="assets/image/severe.jpeg";
    
  
 

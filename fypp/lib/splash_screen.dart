@@ -8,6 +8,8 @@ import 'package:fypp/constants/images.dart';
 import 'package:fypp/login_screen.dart';
 import 'package:fypp/main_screen.dart';
 import 'package:fypp/week8.dart';
+import 'package:fypp/nondepressed.dart';  // Import your PositiveScreen
+import 'package:fypp/severe.dart';
 
 
 
@@ -47,7 +49,7 @@ Future startanimation() async{
    await Future.delayed(const Duration(milliseconds: 5000));
    setState(()=>animate=true);
    await Future.delayed(const Duration(milliseconds: 5000));
-   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MainScreen()));
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const Severe()));
 
   }
 }
