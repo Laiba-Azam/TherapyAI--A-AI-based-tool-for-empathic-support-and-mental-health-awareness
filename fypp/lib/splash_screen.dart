@@ -6,6 +6,7 @@ import 'package:fypp/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashScreen extends StatefulWidget {
+  
   const SplashScreen({super.key});
 
   @override
@@ -14,6 +15,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool animate = false;
+
 
   @override
   void initState() {

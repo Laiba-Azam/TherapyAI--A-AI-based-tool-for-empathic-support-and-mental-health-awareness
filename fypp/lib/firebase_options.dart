@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '971331782820',
     projectId: 'therapy-ai-d561f',
     authDomain: 'therapy-ai-d561f.firebaseapp.com',
+    databaseURL: 'https://therapy-ai-d561f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'therapy-ai-d561f.appspot.com',
     measurementId: 'G-8GH6PTB3Z8',
   );
@@ -55,6 +56,7 @@ class DefaultFirebaseOptions {
     appId: '1:971331782820:android:bc737ad9ecadbd69e17e31',
     messagingSenderId: '971331782820',
     projectId: 'therapy-ai-d561f',
+    databaseURL: 'https://therapy-ai-d561f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'therapy-ai-d561f.appspot.com',
   );
 
@@ -63,6 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:971331782820:ios:f04745575fbf16a1e17e31',
     messagingSenderId: '971331782820',
     projectId: 'therapy-ai-d561f',
+    databaseURL: 'https://therapy-ai-d561f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'therapy-ai-d561f.appspot.com',
     iosClientId: '971331782820-2gi9b58p65illfnps5sg4imgtk4rcijv.apps.googleusercontent.com',
     iosBundleId: 'com.example.fypp',
@@ -73,6 +76,7 @@ class DefaultFirebaseOptions {
     appId: '1:971331782820:ios:f04745575fbf16a1e17e31',
     messagingSenderId: '971331782820',
     projectId: 'therapy-ai-d561f',
+    databaseURL: 'https://therapy-ai-d561f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'therapy-ai-d561f.appspot.com',
     iosClientId: '971331782820-2gi9b58p65illfnps5sg4imgtk4rcijv.apps.googleusercontent.com',
     iosBundleId: 'com.example.fypp',
@@ -84,6 +88,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '971331782820',
     projectId: 'therapy-ai-d561f',
     authDomain: 'therapy-ai-d561f.firebaseapp.com',
+    databaseURL: 'https://therapy-ai-d561f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'therapy-ai-d561f.appspot.com',
     measurementId: 'G-6RV2DP72ML',
   );
