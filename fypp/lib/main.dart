@@ -3,9 +3,13 @@ import 'package:fypp/chatbot.dart';
 import 'package:fypp/home/home.dart';
 import 'package:fypp/splash_screen.dart';
 import 'package:fypp/key.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   Gemini.init(
       apiKey:
           Gemini_Key); // Uncomment if Gemini is required and properly set up
@@ -25,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -1,9 +1,101 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fypp/home/home.dart';
 import 'package:fypp/login/login_form.dart';
+import 'package:fypp/services/functions/authFunctions.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final FirebaseAuthService _authService = FirebaseAuthService();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  bool isSigningUp = false;
+
+  void displayToastMessage(String message, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+    ));
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  
+  void _signUp() async {
+    setState(() {
+      isSigningUp = true;
+    });
+
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    try {
+      User? user =
+          await _authService.signUpWithEmailAndPassword(email, password);
+      setState(() {
+        isSigningUp = false;
+      });
+
+      if (user != null) {
+        // User successfully created
+        final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Success',
+            message: 'User is successfully created!',
+            contentType: ContentType.success,
+          ),
+        );
+
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Home(),
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        isSigningUp = false;
+      });
+
+      // Display error message
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error',
+          message: e.toString(),
+          contentType: ContentType.failure,
+        ),
+      );
+
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +130,20 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const CustomTextField(hintText: 'example@domain.com'),
+              CustomTextField(
+                hintText: 'example@domain.com',
+                controller: emailController,
+              ),
               const SizedBox(height: 20),
-              const CustomTextField(hintText: '*********', isPassword: true),
+              CustomTextField(
+                hintText: '*********',
+                isPassword: true,
+                controller: passwordController,
+              ),
               const SizedBox(height: 18),
               CustomButton(
                 onNext: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const CreatePasswordScreen(),
-                  //   ),
-                  // );
+                  _signUp();
                 },
                 text: 'Sign up with Email',
                 color: Colors.black,
@@ -92,43 +186,7 @@ class SignupScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 17,
-                  right: 17,
-                  top: 20,
-                  bottom: 25,
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      height: 1,
-                      color: Colors.black12,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: const Text(
-                        'or continue with',
-                        style: TextStyle(
-                          color: Colors.black26,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              CustomButton(
-                onNext: () {},
-                text: 'Google',
-                color: Colors.grey.shade300,
-                googleButton: true,
-                textColor: Colors.black,
-                icon: 'assets/image/google.png',
-              ),
+             
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 23),

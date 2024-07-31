@@ -1,16 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:fypp/chatbot.dart';
-
 import 'package:fypp/constants/images.dart';
 import 'package:fypp/login/login_form.dart';
-import 'package:fypp/login_screen.dart';
-import 'package:fypp/main_screen.dart';
-import 'package:fypp/signup/signup_screen.dart';
-import 'package:fypp/week8.dart';
-import 'package:fypp/nondepressed.dart'; // Import your PositiveScreen
-import 'package:fypp/severe.dart';
+import 'package:fypp/home/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,10 +14,11 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool animate = false;
+
   @override
   void initState() {
     super.initState();
-    //initizlize
+    // Initialize
     startanimation();
   }
 
@@ -35,12 +29,13 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         children: [
           AnimatedPositioned(
-              duration: const Duration(milliseconds: 5000),
-              bottom: animate ? 10 : -300,
-              left: animate ? 10 : 10,
-              right: animate ? 10 : 10,
-              top: animate ? 10 : 10,
-              child: const Image(image: AssetImage(splash))),
+            duration: const Duration(milliseconds: 5000),
+            bottom: animate ? 10 : -300,
+            left: animate ? 10 : 10,
+            right: animate ? 10 : 10,
+            top: animate ? 10 : 10,
+            child: const Image(image: AssetImage(splash)),
+          ),
         ],
       ),
     );
@@ -50,7 +45,21 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(milliseconds: 3000));
     setState(() => animate = true);
     await Future.delayed(const Duration(milliseconds: 3200));
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const SignupScreen()));
+
+    // Check if user is signed in
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // User is not signed in, navigate to LoginScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    } else {
+      // User is signed in, navigate to HomeScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Home()),
+      );
+    }
   }
 }

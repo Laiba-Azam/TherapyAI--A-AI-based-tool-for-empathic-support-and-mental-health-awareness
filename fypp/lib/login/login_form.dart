@@ -1,12 +1,78 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fypp/home/home.dart';
+import 'package:fypp/services/functions/authFunctions.dart';
 import 'package:fypp/signup/signup_screen.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _isSigning = false;
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    void _signIn() async {
+      setState(() {
+        _isSigning = true;
+      });
+
+      String email = _emailController.text.trim();
+
+      String password = _passwordController.text.trim();
+
+      try {
+        User? user = await _auth.signInWithEmailAndPassword(email, password);
+        setState(() {
+          _isSigning = false;
+        });
+
+        if (user != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+            ),
+          );
+        }
+      } catch (e) {
+        setState(() {
+          _isSigning = false;
+        });
+
+        final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Error',
+            message: e.toString(),
+            contentType: ContentType.failure,
+          ),
+        );
+
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -46,7 +112,10 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const CustomTextField(hintText: 'example@domain.com'),
+              CustomTextField(
+                hintText: 'example@domain.com',
+                controller: _emailController,
+              ),
               const SizedBox(height: 15),
               const Align(
                 alignment: Alignment.topLeft,
@@ -56,19 +125,15 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const CustomTextField(
+              CustomTextField(
                 hintText: '**********',
                 isPassword: true,
+                controller: _passwordController,
               ),
               const SizedBox(height: 20),
               CustomButton(
                 onNext: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const BusinessScreen(),
-                  //   ),
-                  // );
+                  _signIn();
                 },
                 text: 'Sign in with Email',
                 color: Colors.black,
@@ -110,43 +175,6 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 17,
-                  right: 17,
-                  top: 20,
-                  bottom: 25,
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      height: 1,
-                      color: Colors.black12,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: const Text(
-                        'or continue with',
-                        style: TextStyle(
-                          color: Colors.black26,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              CustomButton(
-                onNext: () {},
-                text: 'Google',
-                color: Colors.grey.shade300,
-                googleButton: true,
-                textColor: Colors.black,
-                icon: 'assets/image/google.png',
               ),
               Padding(
                 padding:
